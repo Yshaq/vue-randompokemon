@@ -11,17 +11,12 @@ const app = Vue.createApp({
         getPokemon() {
             randomNo = Math.floor((Math.random() * 151) + 1);
 
-            fetch(`https://pokeapi.co/api/v2/pokemon?limit=1&offset=${randomNo}`)
+            fetch(`https://pokeapi.co/api/v2/pokemon/${randomNo}`)
             .then( res => res.json())
             .then( res => {
-                this.name = res.results[0].name;
+                this.name = res.name;
                 this.id = randomNo + 1;
-                detail = res.results[0].url;
-                fetch(detail)
-                .then(res => res.json())
-                .then( res => {
-                    this.sprite = res.sprites.front_default;
-                });
+                this.sprite = res.sprites.front_default;
             });
         }
     }
